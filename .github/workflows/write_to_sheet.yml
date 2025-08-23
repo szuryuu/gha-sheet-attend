@@ -1,0 +1,55 @@
+name: write to sheet
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      attend-record:
+        description: "attendance record"
+        required: true
+        type: choice
+        default: "Hadir"
+        options:
+          - Hadir
+          - Izin
+          - Sakit
+          - Libur
+      start-time:
+        description: "start time of working hours"
+        required: true
+        type: string
+        default: "08:30"
+      end-time:
+        description: "end time of working hours"
+        required: true
+        type: string
+        default: "17:00"
+      additional-info:
+        description: "additional information"
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  write_to_sheet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.24.6
+
+      - name: Run script
+        run: go run main.go
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          INPUT_ATTEND_RECORD: ${{ inputs.attend-record }}
+          INPUT_START_TIME: ${{ inputs.start-time }}
+          INPUT_END_TIME: ${{ inputs.end-time }}
+          INPUT_ADDITIONAL_INFO: ${{ inputs.additional-info }}
