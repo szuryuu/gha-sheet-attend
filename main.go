@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"time"
 
 	"golang.org/x/oauth2/google"
@@ -16,7 +17,7 @@ import (
 const (
 	spreadsheetID  = "1-pqF4HCNXjvON226ZTlkifF0VKiKPvJkOdOxm9N0kl4"
 	sheetName      = "Shafwan Ilham Dzaky"
-	dateTimeFormat = "2/1/2006"
+	dateTimeFormat = "1/2/2006"
 )
 
 func sheetService(ctx context.Context) (*sheets.Service, error) {
@@ -50,23 +51,27 @@ func getNextRowNumber(service *sheets.Service) (int, error) {
 		return 0, err
 	}
 
-	if len(resp.Values) <= 4 {
+	const headerRows = 4
+	if len(resp.Values) <= headerRows {
 		return 1, nil
 	}
 
-	lastIndex := -1
-	for i := len(resp.Values) - 1; i >= 0; i-- {
-		if len(resp.Values[i]) > 0 {
-			lastIndex = i
-			break
-		}
+	lastRow := resp.Values[len(resp.Values)-1]
+	if len(lastRow) == 0 {
+		return len(resp.Values) + 1, nil
 	}
 
-	if lastIndex == -1 {
-		return 1, nil
+	lastNumberStr, ok := lastRow[0].(string)
+	if !ok {
+		return 0, fmt.Errorf("Invalid data type for last number")
 	}
 
-	return lastIndex + 2, nil
+	lastNumber, err := strconv.Atoi(lastNumberStr)
+	if err != nil {
+		return 0, fmt.Errorf("Error converting last number to int: %v", err)
+	}
+
+	return lastNumber + 1, nil
 }
 
 func main() {
