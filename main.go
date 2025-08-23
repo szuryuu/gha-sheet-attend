@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"regexp"
 	"strconv"
 	"time"
 
@@ -17,6 +18,7 @@ import (
 const (
 	spreadsheetID = "1-pqF4HCNXjvON226ZTlkifF0VKiKPvJkOdOxm9N0kl4"
 	sheetName     = "Shafwan Ilham Dzaky"
+	sheetId       = 1876510943
 	dateFormat    = "1/2/2006"
 )
 
@@ -120,12 +122,52 @@ func main() {
 	}
 
 	appendCall := sheetService.Spreadsheets.Values.Append(spreadsheetID, sheetName, &newRow).
-		ValueInputOption("USER_ENTERED")
-	_, err = appendCall.Do()
+		ValueInputOption("USER_ENTERED").
+		InsertDataOption("INSERT_ROWS")
+	appendResp, err := appendCall.Do()
 	if err != nil {
 		fmt.Println("Error appending row:", err)
 		return
 	}
 
 	log.Printf("Row appended successfully")
+	log.Printf("Added border")
+
+	rangeString := appendResp.Updates.UpdatedRange
+	re := regexp.MustCompile(`:F(\d+)`)
+	matches := re.FindStringSubmatch(rangeString)
+	if len(matches) > 1 {
+		log.Printf("Range string: %s", rangeString)
+	}
+
+	newRowNumber, _ := strconv.Atoi(matches[1])
+	rowIndex := int64(newRowNumber - 1)
+
+	batchUpdateRequest := &sheets.BatchUpdateSpreadsheetRequest{
+		Requests: []*sheets.Request{
+			{
+				UpdateBorders: &sheets.UpdateBordersRequest{
+					Range: &sheets.GridRange{
+						SheetId:          sheetId,
+						StartRowIndex:    rowIndex,
+						EndRowIndex:      rowIndex + 1,
+						StartColumnIndex: 0,
+						EndColumnIndex:   6,
+					},
+					Top:    &sheets.Border{Style: "SOLID", Color: &sheets.Color{Red: 0, Green: 0, Blue: 0}},
+					Bottom: &sheets.Border{Style: "SOLID", Color: &sheets.Color{Red: 0, Green: 0, Blue: 0}},
+					Left:   &sheets.Border{Style: "SOLID", Color: &sheets.Color{Red: 0, Green: 0, Blue: 0}},
+					Right:  &sheets.Border{Style: "SOLID", Color: &sheets.Color{Red: 0, Green: 0, Blue: 0}},
+				},
+			},
+		},
+	}
+
+	_, err = sheetService.Spreadsheets.BatchUpdate(spreadsheetID, batchUpdateRequest).Do()
+	if err != nil {
+		fmt.Println("Error adding border:", err)
+		return
+	}
+
+	log.Printf("Border added successfully")
 }
