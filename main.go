@@ -48,7 +48,10 @@ func sheetService(ctx context.Context) (*sheets.Service, error) {
 
 func getNextRowNumber(service *sheets.Service) (int, error) {
 	readRange := fmt.Sprintf("%s!A1:A", sheetName)
-	resp, err := service.Spreadsheets.Values.Get(spreadsheetID, readRange).Do()
+	resp, err := service.Spreadsheets.Values.Get(spreadsheetID, readRange).
+		ValueRenderOption("FORMATTED_VALUE").
+		MajorDimension("ROWS").
+		Do()
 	if err != nil {
 		return 0, err
 	}
@@ -58,7 +61,7 @@ func getNextRowNumber(service *sheets.Service) (int, error) {
 		return 1, nil
 	}
 
-	lastRow := resp.Values[len(resp.Values)-1]
+	lastNumberStr, ok := lastRow[0].(string)
 	if len(lastRow) == 0 {
 		return len(resp.Values) + 1, nil
 	}
