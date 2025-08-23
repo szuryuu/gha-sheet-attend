@@ -61,7 +61,7 @@ func getNextRowNumber(service *sheets.Service) (int, error) {
 		return 1, nil
 	}
 
-	lastNumberStr, ok := lastRow[0].(string)
+	lastRow := resp.Values[len(resp.Values)-1]
 	if len(lastRow) == 0 {
 		return len(resp.Values) + 1, nil
 	}
