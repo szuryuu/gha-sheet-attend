@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	spreadsheetID  = "1-pqF4HCNXjvON226ZTlkifF0VKiKPvJkOdOxm9N0kl4"
-	sheetName      = "Shafwan Ilham Dzaky"
-	dateTimeFormat = "1/2/2006"
+	spreadsheetID = "1-pqF4HCNXjvON226ZTlkifF0VKiKPvJkOdOxm9N0kl4"
+	sheetName     = "Shafwan Ilham Dzaky"
+	dateFormat    = "1/2/2006"
 )
 
 func sheetService(ctx context.Context) (*sheets.Service, error) {
@@ -105,7 +105,7 @@ func main() {
 		return
 	}
 
-	todayDate := time.Now().In(loc).Format(dateTimeFormat)
+	todayDate := time.Now().In(loc).Format(dateFormat)
 	newRow := sheets.ValueRange{
 		Values: [][]any{
 			{
