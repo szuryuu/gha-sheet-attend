@@ -2,7 +2,7 @@ name: write to sheet
 
 on:
   schedule:
-    - cron: "17 4 * * *"
+    - cron: "0 1 * * *"
   push:
     branches:
       - main
