@@ -73,7 +73,7 @@ If you want to change the data columns that are sent to the Google Sheet, you ne
       ```go
       // Example: Adjust this line in main.go
       newRow := sheets.ValueRange{
-          Values: [][]interface{}{
+          Values: [][]any{
               {nextNumberRow, todayDate, startTime, endTime, attendRecord, additionalInfo, newCustomField},
           },
       }
