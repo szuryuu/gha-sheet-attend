@@ -116,9 +116,9 @@ func main() {
 			{
 				nextNumberRow,
 				todayDate,
-				attendRecord,
 				startTime,
 				endTime,
+				attendRecord,
 				additionalInfo,
 			},
 		},
