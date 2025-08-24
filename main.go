@@ -99,6 +99,16 @@ func main() {
 	endTime := os.Getenv("INPUT_END_TIME")
 	additionalInfo := os.Getenv("INPUT_ADDITIONAL_INFO")
 
+	loc, err := time.LoadLocation("Asia/Jakarta")
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		return
+	}
+
+	today := time.Now().In(loc)
+	weekday := today.Weekday()
+	todayDate := today.Format(dateFormat)
+
 	if attendRecord == "Libur" {
 		startTime = ""
 		endTime = ""
@@ -110,13 +120,12 @@ func main() {
 		endTime = "17:00"
 	}
 
-	loc, err := time.LoadLocation("Asia/Jakarta")
-	if err != nil {
-		fmt.Println("Error loading location:", err)
-		return
+	if weekday == time.Saturday || weekday == time.Sunday {
+		attendRecord = "Libur"
+		startTime = ""
+		endTime = ""
 	}
 
-	todayDate := time.Now().In(loc).Format(dateFormat)
 	newRow := sheets.ValueRange{
 		Values: [][]any{
 			{
