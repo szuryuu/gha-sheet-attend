@@ -104,6 +104,12 @@ func main() {
 		endTime = ""
 	}
 
+	if attendRecord == "" {
+		attendRecord = "Hadir"
+		startTime = "08:30"
+		endTime = "17:00"
+	}
+
 	loc, err := time.LoadLocation("Asia/Jakarta")
 	if err != nil {
 		fmt.Println("Error loading location:", err)
