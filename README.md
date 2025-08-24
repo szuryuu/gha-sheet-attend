@@ -14,7 +14,7 @@ This repository contains a GitHub Actions implementation to automatically log da
 Follow these steps to configure this project for your own use.
 
 #### **Step 1: Get the Code**
-- **Fork** or **Clone** this repository to your GitHub account.
+- **Fork**, **Clone**, or **Use as Template** this repository to your GitHub account.
 
 #### **Step 2: Configure Google Cloud & Service Account**
 You need a "bot account" (Service Account) to allow the script to access your Google Sheet.
