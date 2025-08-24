@@ -2,7 +2,7 @@ name: write to sheet
 
 on:
   schedule:
-    - cron: "36 3 * * *"
+    - cron: "40 3 * * *"
   push:
     branches:
       - main
@@ -38,6 +38,11 @@ on:
 jobs:
   write_to_sheet:
     runs-on: ubuntu-latest
+    env:
+      INPUT_ATTEND_RECORD: Hadir
+      INPUT_START_TIME: "08:30"
+      INPUT_END_TIME: "17:00"
+      INPUT_ADDITIONAL_INFO: ""
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
