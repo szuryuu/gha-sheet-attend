@@ -38,11 +38,6 @@ on:
 jobs:
   write_to_sheet:
     runs-on: ubuntu-latest
-    env:
-      INPUT_ATTEND_RECORD: Hadir
-      INPUT_START_TIME: "08:30"
-      INPUT_END_TIME: "17:00"
-      INPUT_ADDITIONAL_INFO: ""
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,7 +51,7 @@ jobs:
         run: go run main.go
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-          INPUT_ATTEND_RECORD: ${{ inputs.attend-record || env.INPUT_ATTEND_RECORD }}
-          INPUT_START_TIME: ${{ inputs.start-time || env.INPUT_START_TIME }}
-          INPUT_END_TIME: ${{ inputs.end-time || env.INPUT_END_TIME }}
-          INPUT_ADDITIONAL_INFO: ${{ inputs.additional-info || env.INPUT_ADDITIONAL_INFO }}
+          INPUT_ATTEND_RECORD: ${{ inputs.attend-record || 'Hadir' }}
+          INPUT_START_TIME: ${{ inputs.start-time || '08:30' }}
+          INPUT_END_TIME: ${{ inputs.end-time || '17:00' }}
+          INPUT_ADDITIONAL_INFO: ${{ inputs.additional-info || '' }}
