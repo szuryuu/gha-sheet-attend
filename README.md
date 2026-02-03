@@ -20,7 +20,7 @@ Follow these steps to configure this project for your own use.
 **Step 1: Get the Code**
 - **Fork**, **Clone**, or **Use as Template** this repository to your GitHub account.
 
-**Step 2: Configure Google Cloud & Service Account**
+**Step 2: Configure Google Cloud & Service Account**  
 You need a "bot account" (Service Account) to allow the script to access your Google Sheet.
 1.  Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a **New Project**.
 2.  Within the project, enable two APIs: **Google Sheets API** and **Google Drive API**.
