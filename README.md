@@ -78,3 +78,7 @@ If you want to change the data columns that are sent to the Google Sheet, you ne
           },
       }
       ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
