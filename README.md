@@ -1,4 +1,4 @@
-# GHA Sheet Attend - Daily Attendance via GitHub Actions
+# Daily Attendance via GitHub Actions
 
 This repository contains a GitHub Actions implementation to automatically log daily attendance (e.g., for internships or work) into a Google Sheet.
 
