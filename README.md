@@ -4,19 +4,23 @@ This repository contains a GitHub Actions implementation to automatically log da
 
 ---
 
-### Features
-- **Simple Input Form**: Fill in your daily attendance through an easy-to-use form in the GitHub "Actions" tab.
-- **Full Automation**: The script automatically fetches the current date and calculates the next sequential number.
-- **Automatic Table Formatting**: Every new entry is automatically formatted with table borders to keep the sheet tidy.
-- **Secure**: Credentials are stored using GitHub Secrets, not hardcoded.
+## Features
+-   **Simple Input Form**  
+    Fill in your daily attendance through an easy-to-use form in the GitHub "Actions" tab.
+-   **Full Automation**  
+    The script automatically fetches the current date and calculates the next sequential number.
+-   **Automatic Table Formatting**  
+    Every new entry is automatically formatted with table borders to keep the sheet tidy.
+-   **Secure**  
+    Credentials are stored using GitHub Secrets, not hardcoded.
 
-### Setup Instructions
+## Setup Instructions
 Follow these steps to configure this project for your own use.
 
-#### **Step 1: Get the Code**
+**Step 1: Get the Code**
 - **Fork**, **Clone**, or **Use as Template** this repository to your GitHub account.
 
-#### **Step 2: Configure Google Cloud & Service Account**
+**Step 2: Configure Google Cloud & Service Account**
 You need a "bot account" (Service Account) to allow the script to access your Google Sheet.
 1.  Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a **New Project**.
 2.  Within the project, enable two APIs: **Google Sheets API** and **Google Drive API**.
@@ -29,7 +33,7 @@ You need a "bot account" (Service Account) to allow the script to access your Go
     - Go to the `Keys` tab > `Add Key` > `Create new key`.
     - Choose the **JSON** format and click `Create`. A `.json` file will be downloaded. **Keep this file safe; its contents are secret.**
 
-#### **Step 3: Configure Google Sheets**
+**Step 3: Configure Google Sheets**
 1.  Create a **new Google Sheet**.
 2.  Create the headers in the first few rows, ensuring your data starts from row 5, with the columns:
     `No`, `Hari/Tanggal`, `Waktu Mulai`, `Waktu Selesai`, `Keterangan`, `Keterangan tambahan`
@@ -40,7 +44,7 @@ You need a "bot account" (Service Account) to allow the script to access your Go
     - **Spreadsheet ID**: Found in the URL, e.g., `.../spreadsheets/d/`**`THIS_IS_THE_ID`**`/edit...`
     - **Sheet ID (gid)**: Found at the end of the URL, e.g., `.../edit#gid=`**`123456789`**. For the first sheet, this is usually `0`.
 
-#### **Step 4: Configure GitHub Repository**
+**Step 4: Configure GitHub Repository**
 1.  **Add a Secret**:
     - In your GitHub repository, go to `Settings` > `Secrets and variables` > `Actions`.
     - Click `New repository secret`.
@@ -60,7 +64,7 @@ You need a "bot account" (Service Account) to allow the script to access your Go
 
 Your attendance data will be automatically added to your Google Sheet, complete with table formatting.
 
-### Customizing the Input Template
+## Customizing the Input Template
 If you want to change the data columns that are sent to the Google Sheet, you need to edit two files:
 
 1.  **`.github/workflows/write_to_sheet.yml`**:
@@ -82,3 +86,4 @@ If you want to change the data columns that are sent to the Google Sheet, you ne
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
